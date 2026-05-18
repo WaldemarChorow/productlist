@@ -24,7 +24,7 @@
               {{ item.price/1000 }}k
             }
             @default {
-              {{ item.price }}
+              {{ item.price | currency:'EUR':'symbol':'1.2-2' }}
             }
           }
         </td>
