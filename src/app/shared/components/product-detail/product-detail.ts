@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Products } from '../../services/products';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,25 +10,21 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './product-detail.scss',
 })
 export class ProductDetail {
-
   private route = inject(ActivatedRoute);
+  productService = inject(Products);
 
-  ngOnInit(){
-    let currentName = this.route.snapshot.paramMap.get("name");
-    if(currentName){
-      this.detail.name = currentName;
+  detail = this.productService.productdetail
+    
+
+
+  ngOnInit() {
+    let currentName = this.route.snapshot.paramMap.get('name');
+    if (currentName) {
+      this.productService.setProductDetailByName(currentName)
     }
-  
-  }
-  detail = {
-    "name": "Gaming Maus",
-    "description": `Eine ergonomische Gaming-Maus mit hoher Präzision und einstellbarer DPI. Ideal für FPS- und MOBA-Spiele, bietet sie eine langlebige Bauweise und komfortable Seitentasten für schnelles Reagieren.`,
-    "specs": "dpi: 6400, cable length: 1.8m, color: Schwarz",
-    "stock": 120,
-    "price": 29.99
   }
 
   deleteDetail() {
-    this.detail.name = "";
+    // this.detail.name = '';
   }
 }
