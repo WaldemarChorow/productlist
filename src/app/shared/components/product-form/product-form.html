@@ -1,0 +1,53 @@
+<section class="product-form">
+  <header class="product-form__header">
+    <h1>Produkt erstellen</h1>
+    <a href="" class="btn--close"></a>
+  </header>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <fieldset class="product-form__fieldset--vert">
+      <legend>Product Information</legend>
+      <label for="product-name">Produkt Name:</label>
+      <input type="text" id="product-name" formControlName="name" />
+      @if (productForm.get('name')?.hasError("required")) {
+        <p class="product-form__error">Fehler:</p>
+        <p class="product-form__error">Bitte gin einen Namen ein</p>
+      }
+      @if (productForm.get('name')?.hasError("minlength")) {
+        <p class="product-form__error">Fehler:</p>
+        <p class="product-form__error">Der Name muss min 3 Zeichen lang sein</p>
+      }
+      <label for="description">Beschreibung:</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="4"
+        formControlName="description"
+      ></textarea>
+    </fieldset>
+    <fieldset class="product-form__fieldset--hori">
+      <legend>Stock &amp; Pricing</legend>
+      <label for="stock">Lagerbestand:</label>
+      <input type="number" id="stock" name="stock" formControlName="stock" />
+       @if (productForm.get('stock')?.hasError("required")) {
+        <p class="product-form__error">Fehler:</p>
+        <p class="product-form__error">Bitte gib eine Zahl ein</p>
+      }
+      @if (productForm.get('stock')?.hasError("min")) {
+        <p class="product-form__error">Fehler:</p>
+        <p class="product-form__error">Die Zahl muss posetiv sein</p>
+      }
+      
+      <label for="price">Preis pro Stück (€):</label>
+      <input type="number" id="price" name="price" step="0.01" formControlName="price" />
+        @if (productForm.get('price')?.hasError("required")) {
+        <p class="product-form__error">Fehler:</p>
+        <p class="product-form__error">Bitte gib eine Zahl ein</p>
+      }
+      @if (productForm.get('price')?.hasError("min")) {
+        <p class="product-form__error">Fehler:</p>
+        <p class="product-form__error">Die Zahl muss posetiv sein</p>
+      }
+    </fieldset>
+    <button type="submit" class="btn btn--primary">Produkt hinzufügen</button>
+  </form>
+</section>
