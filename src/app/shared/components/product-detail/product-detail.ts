@@ -1,6 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Products } from '../../services/products';
 
 @Component({
@@ -11,6 +11,7 @@ import { Products } from '../../services/products';
 })
 export class ProductDetail {
   private route = inject(ActivatedRoute);
+  router = inject(Router)
   productService = inject(Products);
 
   detail = this.productService.productdetail
@@ -18,13 +19,14 @@ export class ProductDetail {
 
 
   ngOnInit() {
-    let currentName = this.route.snapshot.paramMap.get('name');
-    if (currentName) {
-      this.productService.setProductDetailByName(currentName)
+    let currentid = Number(this.route.snapshot.paramMap.get('id'));
+    if (currentid) {
+      this.productService.setProductDetailById(currentid)
     }
   }
 
-  deleteDetail() {
-    // this.detail.name = '';
+  async deleteDetail() {
+   this.productService.deleteProduct(this.detail().id)
+    this.router.navigate([""])
   }
 }
